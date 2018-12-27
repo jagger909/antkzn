@@ -91,7 +91,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="welcome pull-left">
-                <p><span class="flaticon-arrows"></span>Добро пожаловать в FixUp. Ваш специалист по ремонту холодильников.</p>
+                <p><span class="flaticon-arrows"></span>Добро пожаловать в FixUp. </p>
               </div>
               <div class="top-social-links">
                 <ul>
@@ -204,32 +204,12 @@
           <div class="navbar-collapse collapse clearfix">
             <ul class="navigation clearfix">
               <li class="current"><a href="{% url 'home' %}">Главная</a></li>
-              <li class="dropdown"><a href="{% url 'about' %}">О нас</a></li>
-              <li class="dropdown"><a href="services.html">Услуги</a>
-                <ul>
-                  <li><a href="ac-installation.html">A/C Installation</a></li>
-                  <li><a href="maintenance-repair.html">Maintenance & Repair</a></li>
-                  <li><a href="diagnostics.html">Diagnostics</a></li>
-                  <li><a href="cleaning-optimization.html">Cleaning & Optimization</a></li>
-                  <li><a href="heater-water.html">Heater & Water</a></li>
-                  <li><a href="energy-efficiency.html">Energy Efficiency</a></li>
-                </ul>
-              </li>
-              <li><a href="reviews.html">Reviews</a></li>
-              <li class="dropdown"><a href="specials-rebate-v1.html">Specials & Rebate</a>
-                <ul>
-                  <li><a href="specials-rebate-v1.html">Specials & Rebate One</a></li>
-                  <li><a href="specials-rebate-v2.html">Specials & Rebate Two</a></li>
-                </ul>
-              </li>
-              <li class="dropdown"><a href="blog-grid.html">Блог</a>
-                <ul>
-                  <li><a href="blog-grid.html">Блог</a></li>
-                  <li><a href="blog.html">Blog With Sidebar</a></li>
-                  <li><a href="blog-single.html">Blog Single Post</a></li>
-                </ul>
-              </li>
-              <li><a href="contact.html">Контакты</a></li>
+              <li><a href="{% url 'repair' %}">Ремонт</a></li>
+              <li><a href="{% url 'improve' %}">Установка</a></li>
+              <li><a href="{% url 'maintain' %}">Обслуживание</a></li>
+              <li><a href="{% url 'blog' %}">Блог</a></li>
+              <li><a href="{% url 'about' %}">О нас</a></li>
+              <li><a href="{% url 'contact' %}">Контакты</a></li>
             </ul>
           </div>
         </nav>
@@ -273,9 +253,11 @@
             </a>
           </div>
           <div class="our-info">
-            <p>Air care was established in 1990 by John Britto and Zat Maxwell in Newyork, United States. John and Zat
-              continue to manage the company today and take pride in providing a family environment for all of our
-              employees. Both owners are very hands-on in all aspects.</p>
+            <p>АНТ сервис - ваш лучший и самый надежный вариант для ремонта и обслуживания холодильников. Благодаря
+              накопленному опыту, наши специалисты гарантируют удовлетворение всех ваших
+              потребностей в ремонте холодильника. Мы являемся вашим лучшим выбором для любого ремонта
+              холодильника, независимо от марки холодильника. Будьте уверены, что наши эксперты наладят работу вашего
+              холодильного оборудования.</p>
             <div class="button">
               <a class="" href="#"><span class="flaticon-arrows-1"></span>Прочитать больше</a>
             </div>
@@ -291,8 +273,8 @@
           </div>
           <ul class="usefull-links left">
             <li><a href="#">Latest Projects</a></li>
-            <li><a href="#">About Air Care</a></li>
-            <li><a href="#">Special Offers</a></li>
+            <li><a href="#">О FixUp</a></li>
+            <li><a href="#"></a></li>
             <li><a href="#">Terms of Use</a></li>
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">News & Articles</a></li>
@@ -456,7 +438,7 @@
                 <span class="flaticon-interface"></span>
               </div>
               <div class="text-holder">
-                <h5><span>Email:</span> info@fixup.me</h5>
+                <h5 class=""><span>Email:</span> info@fixup.me</h5>
               </div>
             </li>
             <li>
