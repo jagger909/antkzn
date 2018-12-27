@@ -1,111 +1,591 @@
-{% load static i18n compress%}<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}AntKzn Project{% endblock title %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% load static i18n compress %}<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{% block title %}Ремонт Холодильников{% endblock title %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
 
-    <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'images/favicon/favicon-32x32.png' %}" sizes="32x32">
+  <link rel="icon" type="image/png" href="{% static 'images/favicon/favicon-16x16.png' %}" sizes="16x16">
 
-    {% block css %}
-    
+  {% block css %}
+
 
     <!-- Your stuff: Third-party CSS libraries go here -->
     {% compress css %}
-    <!-- This file stores project-specific CSS -->
-    
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    
+
+      <!-- This file stores project-specific CSS -->
+      <link href="{% static 'css/style.css' %}" rel="stylesheet">
+      <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+
     {% endcompress %}
-    {% endblock %}
+  {% endblock %}
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <div class="mb-1">
-      <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="{% url 'home' %}">AntKzn Project</a>
+{% comment %}<div class="mb-1">
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="{% url 'home' %}">AntKzn Project</a>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'about' %}">About</a>
-            </li>
-            {% if request.user.is_authenticated %}
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about' %}">About</a>
+        </li>
+        {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            {# URL provided by django-allauth/account/urls.py #}
+            <a class="nav-link" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
+          </li>
+          <li class="nav-item">
+            {# URL provided by django-allauth/account/urls.py #}
+            <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            {# URL provided by django-allauth/account/urls.py #}
+            <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+          </li>
+          <li class="nav-item">
+            {# URL provided by django-allauth/account/urls.py #}
+            <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+</div>{% endcomment %}
+
+
+<!--Start Preloader -->
+<div class="preloader"></div>
+<!--End Preloader -->
+
+<!--Start Top bar area -->
+<section class="top-bar-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-offset-3 col-lg-9">
+        <div class="top-bar">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="welcome pull-left">
+                <p><span class="flaticon-arrows"></span>Добро пожаловать в FixUp. Ваш специалист по ремонту холодильников.</p>
+              </div>
+              <div class="top-social-links">
+                <ul>
+                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                  <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                  <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Top bar area -->
+
+<!--Start header area-->
+<header class="header-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="logo">
+          <a href="{% url 'home' %}">
+            <img src="{% static 'images/resources/logo_fixup_small.png' %}" alt="Awesome Logo">
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="header-contact-info pull-left">
+              <ul>
+                <li>
+                  <div class="iocn-holder">
+                    <span class="flaticon-technology"></span>
+                  </div>
+                  <div class="text-holder">
+                    <h5>Позвоните нам:</h5>
+                    <h6>(843) 225-00-67</h6>
+                  </div>
+                </li>
+                <li>
+                  <div class="iocn-holder">
+                    <span class="flaticon-write"></span>
+                  </div>
+                  <div class="text-holder">
+                    <h5>Месенджеры:</h5>
+                    <h6>(987) 225-00-67</h6>
+                  </div>
+                </li>
+                <li>
+                  <div class="iocn-holder">
+                    <span class="flaticon-agenda"></span>
+                  </div>
+                  <div class="text-holder">
+                    <h5>Круглосуточно</h5>
+                    <h6>24/7</h6>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="search-button pull-right">
+              <div class="toggle-search">
+                <button><i class="fa fa-search" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!--End header area-->
+
+<!--Start header-search  area-->
+<section class="header-search">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="search-form pull-right">
+          <form action="#">
+            <div class="search">
+              <input type="search" name="search" value="" placeholder="Поиск">
+              <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End header-search  area-->
+
+<!--Start mainmenu area-->
+<section class="mainmenu-area stricky">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <!--Start mainmenu-->
+        <nav class="main-menu">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="navbar-collapse collapse clearfix">
+            <ul class="navigation clearfix">
+              <li class="current"><a href="{% url 'home' %}">Главная</a></li>
+              <li class="dropdown"><a href="{% url 'about' %}">О нас</a></li>
+              <li class="dropdown"><a href="services.html">Услуги</a>
+                <ul>
+                  <li><a href="ac-installation.html">A/C Installation</a></li>
+                  <li><a href="maintenance-repair.html">Maintenance & Repair</a></li>
+                  <li><a href="diagnostics.html">Diagnostics</a></li>
+                  <li><a href="cleaning-optimization.html">Cleaning & Optimization</a></li>
+                  <li><a href="heater-water.html">Heater & Water</a></li>
+                  <li><a href="energy-efficiency.html">Energy Efficiency</a></li>
+                </ul>
               </li>
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+              <li><a href="reviews.html">Reviews</a></li>
+              <li class="dropdown"><a href="specials-rebate-v1.html">Specials & Rebate</a>
+                <ul>
+                  <li><a href="specials-rebate-v1.html">Specials & Rebate One</a></li>
+                  <li><a href="specials-rebate-v2.html">Specials & Rebate Two</a></li>
+                </ul>
               </li>
-            {% else %}
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+              <li class="dropdown"><a href="blog-grid.html">Блог</a>
+                <ul>
+                  <li><a href="blog-grid.html">Блог</a></li>
+                  <li><a href="blog.html">Blog With Sidebar</a></li>
+                  <li><a href="blog-single.html">Blog Single Post</a></li>
+                </ul>
               </li>
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-              </li>
-            {% endif %}
+              <li><a href="contact.html">Контакты</a></li>
+            </ul>
+          </div>
+        </nav>
+        <!--End mainmenu-->
+        <div class="appoinment-button">
+          <a href="#">Сделать заявку</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End mainmenu area-->
+
+{% block banner %}
+{% endblock banner %}
+
+<div class="container">
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  {% block content %}
+  {% endblock content %}
+
+</div> <!-- /container -->
+
+
+<!--Start footer area-->
+<footer class="footer-area">
+  <div class="container">
+    <div class="row">
+      <!--Start single footer widget-->
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="single-footer-widget mar-btm">
+          <div class="footer-logo">
+            <a href="index-2.html">
+              <img src="{% static 'images/footer/footer-logo.png' %}" alt="Awesome Footer Logo">
+            </a>
+          </div>
+          <div class="our-info">
+            <p>Air care was established in 1990 by John Britto and Zat Maxwell in Newyork, United States. John and Zat
+              continue to manage the company today and take pride in providing a family environment for all of our
+              employees. Both owners are very hands-on in all aspects.</p>
+            <div class="button">
+              <a class="" href="#"><span class="flaticon-arrows-1"></span>Прочитать больше</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End single footer widget-->
+      <!--Start single footer widget-->
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="single-footer-widget mar-btm">
+          <div class="title">
+            <h3>Полезные ссылки</h3>
+          </div>
+          <ul class="usefull-links left">
+            <li><a href="#">Latest Projects</a></li>
+            <li><a href="#">About Air Care</a></li>
+            <li><a href="#">Special Offers</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">News & Articles</a></li>
+            <li><a href="#">For Emergency</a></li>
+          </ul>
+          <ul class="usefull-links">
+            <li><a href="#">A/C Installation</a></li>
+            <li><a href="#">Maintenance</a></li>
+            <li><a href="#">Diagnistics</a></li>
+            <li><a href="#">Optimization</a></li>
+            <li><a href="#">Heating & Water</a></li>
+            <li><a href="#">Energy Effciency</a></li>
           </ul>
         </div>
-      </nav>
-
+      </div>
+      <!--Start single footer widget-->
+      <!--Start single footer widget-->
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="single-footer-widget">
+          <div class="title">
+            <h3>Наш Instagram</h3>
+          </div>
+          <ul class="instagram-feed-list">
+            <li>
+              <div class="image-holder">
+                <img src="{% static 'images/footer/instagram-1.jpg' %}" alt="Awesome Image">
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="image-holder">
+                <img src="{% static 'images/footer/instagram-2.jpg' %}" alt="Awesome Image">
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="image-holder">
+                <img src="{% static 'images/footer/instagram-3.jpg' %}" alt="Awesome Image">
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="image-holder">
+                <img src="{% static 'images/footer/instagram-4.jpg' %}" alt="Awesome Image">
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="image-holder">
+                <img src="{% static 'images/footer/instagram-5.jpg' %}" alt="Awesome Image">
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="image-holder">
+                <img src="{% static 'images/footer/instagram-6.jpg' %}" alt="Awesome Image">
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="image-holder">
+                <img src="{% static 'images/footer/instagram-7.jpg' %}" alt="Awesome Image">
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="image-holder">
+                <img src="{% static 'images/footer/instagram-8.jpg' %}" alt="Awesome Image">
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="image-holder">
+                <img src="{% static 'images/footer/instagram-9.jpg' %}" alt="Awesome Image">
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--End single footer widget-->
+      <!--Start single footer widget-->
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="single-footer-widget martop">
+          <div class="title">
+            <h3>Наши контакты</h3>
+          </div>
+          <ul class="footer-contact-info">
+            <li>
+              <div class="icon-holder">
+                <span class="flaticon-pin map-marker"></span>
+              </div>
+              <div class="text-holder">
+                <h5><span>Адрес:</span> г. Казань<br>Проспект победы 78</h5>
+              </div>
+            </li>
+            <li>
+              <div class="icon-holder">
+                <span class="flaticon-technology"></span>
+              </div>
+              <div class="text-holder">
+                <h5><span>Телефон:</span>+7 (843) 225-00-67 &<br>+7 (987) 225-00-67</h5>
+              </div>
+            </li>
+            <li>
+              <div class="icon-holder">
+                <span class="flaticon-interface"></span>
+              </div>
+              <div class="text-holder">
+                <h5><span>Email:</span> info@fixup.me</h5>
+              </div>
+            </li>
+            <li>
+              <div class="icon-holder">
+                <span class="flaticon-clock"></span>
+              </div>
+              <div class="text-holder">
+                <h5><span>Часы работы:</span> Круглосуточно: 24/7</h5>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--End single footer widget-->
     </div>
+  </div>
+</footer>
+<!--End footer area-->
 
-    <div class="container">
+<!--Start footer bottom area-->
+<section class="footer-bottom-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="footer-bottom">
+          <div class="copyright-text pull-left">
+            <p>Copyrights © 2018 All Rights Reserved by <a href="#">FixUp</a></p>
+          </div>
+          <div class="footer-social-links pull-right">
+            <ul>
+              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End footer bottom area-->
 
-      {% if messages %}
-          {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-          {% endfor %}
-      {% endif %}
 
-      {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
-      {% endblock content %}
+<!--Scroll to top-->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
 
-    </div> <!-- /container -->
 
-    {% block modal %}{% endblock modal %}
+{% block modal %}{% endblock modal %}
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    {% block javascript %}
-      
-      <!-- Required by Bootstrap v4.1.1 -->
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+{% block javascript %}
 
-      <!-- Your stuff: Third-party javascript libraries go here -->
-      
+  {#  <!-- Required by Bootstrap v4.1.1 -->#}
+  {#  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"#}
+  {#          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"#}
+  {#          crossorigin="anonymous"></script>#}
+  {#  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"#}
+  {#          integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"#}
+  {#          crossorigin="anonymous"></script>#}
+  {#  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"#}
+  {#          integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"#}
+  {#          crossorigin="anonymous"></script>#}
 
-      <!-- place project specific Javascript in this file -->
-      {% compress js %}
-      <script src="{% static 'js/project.js' %}"></script>
-      {% endcompress %}
+  <!-- Your stuff: Third-party javascript libraries go here -->
 
-    {% endblock javascript %}
-  </body>
+
+  <!-- place project specific Javascript in this file -->
+  {% compress js %}
+    <!-- main jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <!-- Wow Script -->
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <!-- bootstrap -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- bx slider -->
+    <script src="{% static 'js/jquery.bxslider.min.js' %}"></script>
+    <!-- count to -->
+    <script src="{% static 'js/jquery.countTo.js' %}"></script>
+    <!-- owl carousel -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <!-- validate -->
+    <script src="{% static 'js/validation.js' %}"></script>
+    <!-- mixit up -->
+    <script src="{% static 'js/jquery.mixitup.min.js' %}"></script>
+    <!-- easing -->
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <!-- gmap helper -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHzPSV2jshbjI8fqnC_C4L08ffnj5EN3A"></script>
+    <!--gmap script-->
+    <script src="{% static 'js/gmaps.js' %}"></script>
+    <script src="{% static 'js/map-helper.js' %}"></script>
+    <!-- video responsive script -->
+    <script src="{% static 'js/jquery.fitvids.js' %}"></script>
+    <!-- jQuery ui js -->
+    <script src="{% static 'assets/jquery-ui-1.11.4/jquery-ui.js' %}"></script>
+    <!-- Language Switche  -->
+    <script src="{% static 'assets/language-switcher/jquery.polyglot.language.switcher.js' %}"></script>
+    <!-- fancy box -->
+    <script src="{% static 'js/jquery.fancybox.pack.js' %}"></script>
+    <script src="{% static 'js/jquery.appear.js' %}"></script>
+    <!-- isotope script-->
+    <script src="{% static 'js/isotope.js' %}"></script>
+    <script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+    <!-- jQuery timepicker js -->
+    <script src="{% static 'assets/timepicker/timePicker.js' %}"></script>
+    <!-- Bootstrap select picker js -->
+    <script src="{% static 'assets/bootstrap-sl-1.12.1/bootstrap-select.js' %}"></script>
+
+
+    <!-- revolution slider js -->
+    <script src="{% static 'assets/revolution/js/jquery.themepunch.tools.min.js' %}"></script>
+    <script src="{% static 'assets/revolution/js/jquery.themepunch.revolution.min.js' %}"></script>
+    <script src="{% static 'assets/revolution/js/extensions/revolution.extension.actions.min.js' %}"></script>
+    <script src="{% static 'assets/revolution/js/extensions/revolution.extension.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/revolution/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+    <script src="{% static 'assets/revolution/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+    <script src="{% static 'assets/revolution/js/extensions/revolution.extension.migration.min.js' %}"></script>
+    <script src="{% static 'assets/revolution/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+    <script src="{% static 'assets/revolution/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+    <script src="{% static 'assets/revolution/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+    <script src="{% static 'assets/revolution/js/extensions/revolution.extension.video.min.js' %}"></script>
+
+    <script src="{% static 'js/custom.js' %}"></script>
+  {% endcompress %}
+
+{% endblock javascript %}
+</body>
 </html>
  
